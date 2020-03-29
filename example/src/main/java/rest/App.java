@@ -18,9 +18,9 @@ public class App {
 
     public static void main(final String[] args) throws IOException {
         final HttpServer server = startServer();
-        System.out.println(String
-                .format("Jersey app started. Available at " + "%sapplication.wadl\nHit enter to stop it...", BASE_URI));
-        System.in.read();
-        server.shutdownNow();
+//        System.out.println(String
+//                .format("Jersey app started. Available at " + "%sapplication.wadl\nHit enter to stop it...", BASE_URI));
+//        System.in.read();
+//        server.shutdownNow();
     }
 }
