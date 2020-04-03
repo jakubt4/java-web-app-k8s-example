@@ -78,9 +78,30 @@ vagrant ssh k8s-master
 Now, you are in the master node of the K8s cluster. Check your nodes:
 kubectl get nodes
 
-
+You have two options:
+a)
 Create yaml file for deploying your app (I'm mainly using nano:) ):
 nano javawebapp.yaml
 
-and create your deployment file or use following one with my own image:
+and apply/push your deployment file:
+kubectl apply -f javawebapp.yaml
+
+b)
+Use the following one yaml file with my own image for Java WEB App:
+kubectl apply -f https://raw.githubusercontent.com/jakubt4/java-web-app-k8s-example/master/example/javawebapp.yaml
+
+Check your created pods based on your deployment:
+kubectl get pods
+
+Now you need to create service for your deployment. Again, you have two options here:
+a)
+Create yaml file for service for your deplying (I'm mainly using nano:) ):
+nano javawebapp-service.yaml
+
+and apply/push your deployment file:
+kubectl apply -f javawebapp-service.yaml
+
+b)
+Use the following one yaml file with my own service for Java WEB App deployment:
+
 
