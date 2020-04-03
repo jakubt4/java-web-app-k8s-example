@@ -1,0 +1,86 @@
+Prerequisites:
+Linux (min 4GB RAM, 4 Cores (threads)) - can be VM in VMWare - VBox doesn't support virtualization!
+
+In Linux:
+- virtualbox
+- docker
+- vagrant
+---------------------------------------------------------------------------------------------------------------
+MANAGE IMAGES & CONTAINERS
+
+Build the docker image from app with Dockerfile (instead of 'javawebapp' image name feel free to use your own image name :) ):
+sudo docker build -t javawebapp <path-to-dockerfile>
+
+Check created image:
+sudo docker images
+
+Run created image with exposing port (the first port is exposed port of container which is mapped to the second port - port of your app) :
+sudo docker run -p 8080:8080 javawebapp
+
+In another terminal window try to get address with curl (or in your web broser):
+curl http://localhost:8080/myapp/example/hello
+
+You can stop the running container with Java WEB app  with Ctrl+c.
+
+Show all containers:
+sudo docker ps -a
+
+For removing container:
+sudo docker container rm <container-IDs>
+
+For removing images:
+sudo docker rmi <image-IDs>
+----------------------------------------------------------------------------------------------------------------
+PUSH IMAGE TO DOCKERHUB (you need account there - its free ;) )
+
+Log into your dockerhub account (it will ask for password):
+sudo docker login --username=<account-id>
+
+Create tag for your image:
+sudo docker tag javawebapp <your-account-id>/javawebapp:v1
+
+In example, I'm using my own dockerhub repo - jayty - so -> jayty/javawebapp:v1
+
+Then just push your tagged image (wihtout version):
+sudo docker push <account-id>/javawebapp
+
+Now, you can check your dockerhub repo.
+----------------------------------------------------------------------------------------------------------------
+RUN KUBERNETES IN YOUR LOCAL CLUSTER FROM 3 VMs
+
+Feel free to adapt the Vagrantfile for yourself.
+
+Go into the 'cluster' folder:
+cd cluster/
+
+With vagrant, check if there already exists any running VM (you must be in cluster/ folder of the project):
+vagrant status
+
+If exists, remove by:
+vagrant destroy
+
+Run your vagrant for init cluster with 3 VMs and Kubernetes:
+vagrant up
+
+And just wait..
+and wait..
+and wait..
+:)
+----------------------------------------------------------------------------------------------------------------
+DEPLOY YOUR APP INTO THE CLUSTER (later, you can also deploy your own app directly through the vagrant playbook)
+
+Go into the 'cluster' folder:
+cd cluster/
+
+Ssh to the k8s master node:
+vagrant ssh k8s-master
+
+Now, you are in the master node of the K8s cluster. Check your nodes:
+kubectl get nodes
+
+
+Create yaml file for deploying your app (I'm mainly using nano:) ):
+nano javawebapp.yaml
+
+and create your deployment file or use following one with my own image:
+
