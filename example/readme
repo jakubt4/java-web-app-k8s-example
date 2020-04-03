@@ -102,6 +102,20 @@ and apply/push your deployment file:
 kubectl apply -f javawebapp-service.yaml
 
 b)
-Use the following one yaml file with my own service for Java WEB App deployment:
+Use the following one yaml file with my own service for Java WEB App deployment (must be used with preprepared deployment config).
+This service will expose the port for the app mapped to the port of your deplyment app on the public IP -> its define in Vagrantfile for each VM (192.168.50.10, 192.168.50.11, 192.168.50.12).
+kubectl apply -f https://raw.githubusercontent.com/jakubt4/java-web-app-k8s-example/master/example/javawebapp-service.yaml
 
+Check your created service based on your deployment:
+kubectl get svc
 
+If you used the preprepared deployment just curl from the host (each respons is 'Hello world'):
+curl http://192.168.50.12:30080/myapp/example/hello
+
+or
+
+curl http://192.168.50.11:30080/myapp/example/hello
+
+or
+
+curl http://192.168.50.10:30080/myapp/example/hello
